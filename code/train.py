@@ -80,6 +80,8 @@ parser.add_argument("--ds_threshold", default=0.4, type=float,
                     help='discrad samples under this threshold')
 parser.add_argument("--ds_epoch", default=100, type=int,
                     help='at which epoch to ds hard samples')
+parser.add_argument("--p_corr_file", type=str, default=None,
+                    help='path to p_correct file')
 
 parser.add_argument("--dataset_weight", action='store_true',
                     help="use dataset weight")
@@ -160,13 +162,14 @@ def main():
         outdir_p_corr = os.path.join(outdir_p_corr, f"epoch")
 
         if args.ds_hard and epoch in ds_epochs:
-            N0 = 100
-            batch_size = 64
             threshold = args.ds_threshold
-            args.p_corr_file = os.path.join(outdir_p_corr, f'{epoch - 1}_{N0}.npy')
+            if not args.p_corr_file:
+                N0 = 100
+                batch_size = 64
+                args.p_corr_file = os.path.join(outdir_p_corr, f'{epoch - 1}_{N0}.npy')
 
-            p_correct(model, epoch - 1, args.noise_sd, outdir_p_corr, N0, args.dataset, 
-                        "train", batch_size=batch_size)
+                p_correct(model, epoch - 1, args.noise_sd, outdir_p_corr, N0, args.dataset, 
+                            "train", batch_size=batch_size)
 
             p_corr = np.load(args.p_corr_file)
             easy_indices = np.where(p_corr >= threshold)[0]
