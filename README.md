@@ -19,6 +19,10 @@ conda install pytorch torchvision cudatoolkit=[VERSION] -c pytorch # linux, choo
 pip install setGPU tensorboardX
 ```
 
+## Data
+
+We provide the certification results used in our paper in the folder `data/certify`. The ECDF curves data in Figure 9 is in `data/ecdf`.
+
 ## Train
 
 we provide the train scripts in the folder ```script```. Below is the example of training on noise sigma = 0.25
@@ -41,14 +45,14 @@ CUDA_VISIBLE_DEVICES=0 python code/train.py \
                         --attack_steps 3 \
                         --id 1 \
 ```
-To train under &sigma; = 0.25, 0.5, 1.0, you can run:
+To train under &sigma; = 0.25, 0.5, 1.0 on CIFAR-10, you can run:
 ```
-bash script/train_0.25.sh   # sigma=0.25
-bash script/train_0.5.sh    # sigma=0.5
-bash script/train_1.0.sh    # sigma=1.0
+bash script/cifar10/train_0.25.sh   # sigma=0.25
+bash script/cifar10/train_0.5.sh    # sigma=0.5
+bash script/cifar10/train_1.0.sh    # sigma=1.0
 ```
 
-Checkpoints of our experiments can be find [here](https://mega.nz/folder/yVkkzBCS#L8DTNIjtA8w7iOx6cw7iNw). It contains three models trained under &sigma; = 0.25, 0.5, 1.0 respectively.
+Checkpoints of our experiments can be find [here](https://mega.nz/folder/zZNCDKqK#yLjfWzQo5xLJryuyYQYyBw). It contains three models trained under &sigma; = 0.25, 0.5, 1.0 respectively.You can find the `p_correct` data used for IMAGENET training following the same [link](https://mega.nz/folder/zZNCDKqK#yLjfWzQo5xLJryuyYQYyBw).
 
 ## Certification
 
@@ -65,9 +69,9 @@ CUDA_VISIBLE_DEVICES=0 python code/certify.py \
     --N=100000 \
     --skip=1 
 ```
-To certify the model under &sigma; = 0.25, 0.5, 1.0, you can run
+To certify the model under &sigma; = 0.25, 0.5, 1.0 on CIFAR-10, you can run
 ```
-bash script/certify_0.25.sh    # sigma = 0.25
-bash script/certify_0.5.sh     # sigma = 0.5
-bash script/certify_1.0.sh     # sigma = 1.0
+bash script/cifar10/certify_0.25.sh    # sigma = 0.25
+bash script/cifar10/certify_0.5.sh     # sigma = 0.5
+bash script/cifar10/certify_1.0.sh     # sigma = 1.0
 ```
